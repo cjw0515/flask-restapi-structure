@@ -10,7 +10,9 @@ flask_bcrypt = Bcrypt()
 
 def create_app(config_name):
     app = Flask(__name__)
+    # about flask config : https://flask.palletsprojects.com/en/1.1.x/config/#configuring-from-environment-variables
     app.config.from_object(config_by_name[config_name])
+    # about flask_sqlalchemy : https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/
     db.init_app(app)
     flask_bcrypt.init_app(app)
 
