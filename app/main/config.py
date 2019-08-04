@@ -40,4 +40,4 @@ config_by_name = dict(
 key = Config.SECRET_KEY
 
 if __name__ == "__main__":
-    print()
+    print(key)
