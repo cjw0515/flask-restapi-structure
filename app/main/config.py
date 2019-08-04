@@ -2,6 +2,7 @@ import os
 
 # uncomment the line below for postgres database url from environment variable
 # postgres_local_base = os.environ['DATABASE_URL']
+# db config keys : https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
