@@ -6,14 +6,14 @@ from flask_script import Manager
 
 from app.main import create_app, db
 from app import blueprint
-from app.main.model import blacklist
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 app.register_blueprint(blueprint)
 app.app_context().push()
 
+# flask_script : https://flask-script.readthedocs.io/en/latest/
 manager = Manager(app)
-
+# flask_migrate : https://flask-migrate.readthedocs.io/en/latest/
 migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
