@@ -7,7 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # about flask_sqlalchemy : https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
 load_dotenv(find_dotenv())
-db_options = "mysql+pymysql://{user}:{pwd}@{ip}/{db}".format(
+db_options = "mysql+pymysql://{user}:{pwd}@{ip}/{db}?charset=utf8".format(
     user=os.getenv("USER"),
     pwd=os.getenv("PASSWORD"),
     ip=os.getenv("IP"),
