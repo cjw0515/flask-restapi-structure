@@ -1,8 +1,18 @@
 import os
+from dotenv import load_dotenv, find_dotenv
 
-# uncomment the line below for postgres database url from environment variable
-# postgres_local_base = os.environ['DATABASE_URL']
-# db config keys : https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+# about flask config : https://flask.palletsprojects.com/en/1.1.x/config/#configuring-from-environment-variables
+# about flask_sqlalchemy : https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
+
+load_dotenv(find_dotenv())
+db_options = "mysql+pymysql://{user}:{pwd}@{ip}/{db}".format(
+    user=os.getenv("USER"),
+    pwd=os.getenv("PASSWORD"),
+    ip=os.getenv("IP"),
+    db=os.getenv("DB"),
+)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,17 +21,15 @@ class Config:
     DEBUG = False
 
 class DevelopmentConfig(Config):
-    # uncomment the line below to use postgres
-    # SQLALCHEMY_DATABASE_URI = postgres_local_base
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_boilerplate_main.db')
+    SQLALCHEMY_DATABASE_URI = db_options
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_boilerplate_test.db')
+    SQLALCHEMY_DATABASE_URI = db_options
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -41,4 +49,4 @@ config_by_name = dict(
 key = Config.SECRET_KEY
 
 if __name__ == "__main__":
-    print(key)
+    print(db_options)
