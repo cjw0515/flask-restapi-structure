@@ -1,8 +1,9 @@
 from flask import request
 from flask_restplus import Resource
-
+from ..util.decorator import token_required
 from ..util.dto import TodoDto
 from ..service.todo_service import insert_todo, get_todos, get_a_todo, delete_todo, update_todo
+from app.main.service.auth_helper import Auth
 
 api = TodoDto.api
 _todo = TodoDto.todo
@@ -15,6 +16,7 @@ flask-restplus examples : https://flask-restplus.readthedocs.io/en/stable/exampl
 class TodoList(Resource):
     @api.doc('list_of_registered_todos')
     @api.marshal_list_with(_todo, envelope='data')
+    @token_required
     def get(self):
         return get_todos()
 
