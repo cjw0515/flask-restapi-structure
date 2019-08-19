@@ -27,8 +27,10 @@ def update_todo(id, data):
     todo.todo = data['todo']
     db.session.commit()
 
-    return todo.todo
-
+    return {
+        'status': 'success',
+        'message': 'Successfully updated.'
+    }, 201
 
 
 def delete_todo(id):

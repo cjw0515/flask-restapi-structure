@@ -8,7 +8,7 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         data, status = Auth.get_logged_in_user(request)
-        print(data, status)
+        # print(data, status)
         token = data.get('data')
 
         if not token:

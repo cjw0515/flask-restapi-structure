@@ -61,6 +61,10 @@ class Auth:
     def get_logged_in_user(new_request):
         # get the auth token
         auth_token = new_request.headers.get('Authorization')
+        if auth_token:
+            auth_token = auth_token.split(" ")[1]
+        else:
+            auth_token = ''
         # print(auth_token)
         if auth_token:
             resp = User.decode_auth_token(auth_token)

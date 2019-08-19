@@ -14,12 +14,13 @@ flask-restplus examples : https://flask-restplus.readthedocs.io/en/stable/exampl
 
 @api.route('/')
 class TodoList(Resource):
+    @token_required
     @api.doc('list_of_registered_todos')
     @api.marshal_list_with(_todo, envelope='data')
-    @token_required
     def get(self):
         return get_todos()
 
+    @token_required
     @api.response(201, 'User successfully created.')
     @api.doc('create a new user')
     @api.expect(_todo, validate=True)
@@ -31,6 +32,7 @@ class TodoList(Resource):
 @api.param('id', 'The todo identifier')
 @api.response(404, 'todo found.')
 class Todo(Resource):
+    @token_required
     @api.doc('get a todo')
     @api.marshal_with(_todo)
     def get(self, id):
@@ -40,16 +42,21 @@ class Todo(Resource):
         else:
             return todo
 
+    @token_required
     @api.doc('delete a user')
     @api.response(204, 'User successfully deleted.')
     def delete(self, id):
         delete_todo(id)
-        return '', 204
+        return {
+        'status': 'success',
+        'message': 'Successfully deleted.'
+        }, 204
 
-    @api.doc('get a todo')
+    @token_required
+    @api.doc('modify todo')
     @api.response(201, 'User successfully updated.')
     @api.expect(_todo, validate=True)
     def put(self, id):
         data = request.json
 
-        return update_todo(id, data), 201
+        return update_todo(id, data)
