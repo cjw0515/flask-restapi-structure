@@ -20,5 +20,8 @@ def create_app(config_name):
     when passing back the app object.
     """
     flask_bcrypt.init_app(app)
+    @app.route('/')
+    def hello():
+        return 'hello world~'
 
     return app
