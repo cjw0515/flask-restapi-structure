@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from definitions import STATIC_PATH, TEMPLATE_FOLDER
@@ -28,9 +28,7 @@ def create_app(config_name):
     # @app.route('/', defaults={'path': ''})
     # @app.route('/<path:path>')
     @app.route('/')
-    @app.route('/<path:path>')
     def catch_all():
-        print(request.path)
         # return render_template("index.html")
         return render_template("index.html")
 

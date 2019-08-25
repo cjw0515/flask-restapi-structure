@@ -8,9 +8,9 @@ from .main.controller.todo_controller import api as todo_ns
 blueprint = Blueprint('api', __name__)
 
 api = Api(blueprint,
-          title='FLASK RESTPLUS API BOILER-PLATE WITH JWT',
+          title='admin web service',
           version='1.0',
-          dApiescription='a boilerplate for flask restplus web service',
+          dApiescription='admin web service WITH JWT',
           doc='/doc/'
           )
 
