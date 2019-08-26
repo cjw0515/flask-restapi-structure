@@ -2,11 +2,11 @@ from flask import request
 from flask_restplus import Resource
 
 from app.main.service.auth_helper import Auth
-from ..util.dto import AuthDto
+from ..util.dto import AuthDto, UserDto
 
 api = AuthDto.api
 user_auth = AuthDto.user_auth
-
+user_info = UserDto.user_info
 
 @api.route('/login')
 class UserLogin(Resource):
@@ -31,3 +31,18 @@ class LogoutAPI(Resource):
         # get auth token
         auth_header = request.headers.get('Authorization')
         return Auth.logout_user(data=auth_header)
+
+
+@api.route('/user/<token>')
+@api.param('token', 'The User token')
+@api.response(404, 'User not found.')
+class UserToken(Resource):
+    @api.doc('get a user from token')
+    @api.marshal_with(user_info)
+    def get(self, token):
+        # get auth token
+        user = Auth.get_user_from_token(token)
+        if not user:
+            api.abort(404)
+        else:
+            return user
