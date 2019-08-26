@@ -9,6 +9,14 @@ class UserDto:
         'password': fields.String(required=True, description='user password'),
         'public_id': fields.String(description='user Identifier')
     })
+    user_info = api.model('user', {
+        'email': fields.String(required=True, description='user email address'),
+        'username': fields.String(required=True, description='user username'),
+        'password': fields.String(required=True, description='user password'),
+        'public_id': fields.String(description='user Identifier'),
+        'registered_on': fields.Date(description='user registered date'),
+        'user_level': fields.Integer(description='user level')
+    })
 
 
 class AuthDto:
