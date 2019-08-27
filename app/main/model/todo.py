@@ -1,7 +1,6 @@
 from .. import db
 
 class Todo(db.Model):
-    """ User Model for storing user related details """
     __tablename__ = "todo"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

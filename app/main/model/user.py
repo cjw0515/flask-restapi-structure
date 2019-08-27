@@ -15,7 +15,7 @@ class User(db.Model):
     public_id = db.Column(db.String(191), unique=True)
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(191))
-    user_level = db.Column(db.Integer, nullable=False, default=1)
+    group_id = db.Column(db.Integer, nullable=False, default=1)
 
     @property
     def password(self):

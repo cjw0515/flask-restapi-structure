@@ -7,6 +7,7 @@ from flask_script import Manager
 from app.main import create_app, db
 from app import blueprint
 from flask_cors import CORS
+from app.main.model.group import UserGroup
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 CORS(app)

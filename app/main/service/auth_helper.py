@@ -1,4 +1,5 @@
 from app.main.model.user import User
+from app.main.model.group import UserGroup
 from ..service.blacklist_service import save_token
 
 
@@ -103,8 +104,13 @@ class Auth:
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
-                user = User.query.filter_by(id=resp).first()
-                return user, 200
+                # user = User.query.filter_by(id=resp).first()
+                user = User.query\
+                    .join(UserGroup, User.group_id == UserGroup.group_id)\
+                    .add_columns(User.username, UserGroup.group_name)\
+                    .filter(User.id == resp).first()
+
+                return {'username': user.username, 'group_name': user.group_name}, 200
             response_object = {
                 'status': 'fail',
                 'message': resp

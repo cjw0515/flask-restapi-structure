@@ -1,13 +1,10 @@
 from .. import db
 
-class Todo(db.Model):
-    """ User Model for storing user related details """
-    __tablename__ = "todo"
+class UserGroup(db.Model):
+    __tablename__ = "user_group"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    todo = db.Column(db.String(255), nullable=False)
-    regdate = db.Column(db.DateTime, nullable=False, default=db.func.now())
-    complete = db.Column(db.Boolean, nullable=False, default=False)
+    group_id = db.Column(db.Integer, primary_key=True)
+    group_name = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
-        return "<Todo '{}'>".format(self.todo)
+        return "<UserGroup '{}'>".format(self.group_name)
