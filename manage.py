@@ -8,6 +8,9 @@ from app.main import create_app, db
 from app import blueprint
 from flask_cors import CORS
 from app.main.model.group import UserGroup
+from app.main.model.todo import Todo
+from app.main.model.blacklist import BlacklistToken
+from app.main.model.user import User
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 CORS(app)
