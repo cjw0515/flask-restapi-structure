@@ -1,5 +1,5 @@
 from app.main.model.user import User
-from app.main.model.group import UserGroup
+from app.main.model.user_group import UserGroup
 from ..service.blacklist_service import save_token
 
 
@@ -9,9 +9,9 @@ class Auth:
     def login_user(data):
         try:
             # fetch the user data
-            user = User.query.filter_by(email=data.get('email')).first()
+            user = User.query.filter_by(login_name=data.get('username')).first()
             if user and user.check_password(data.get('password')):
-                auth_token = user.encode_auth_token(user.id)
+                auth_token = user.encode_auth_token(user.employee_no)
                 if auth_token:
                     response_object = {
                         'status': 'success',
@@ -22,7 +22,7 @@ class Auth:
             else:
                 response_object = {
                     'status': 'fail',
-                    'message': 'email or password does not match.'
+                    'message': 'login name or password does not match.'
                 }
                 return response_object, 401
 
@@ -69,15 +69,13 @@ class Auth:
         # print(auth_token)
         if auth_token:
             resp = User.decode_auth_token(auth_token)
-            if not isinstance(resp, str):
-                user = User.query.filter_by(id=resp).first()
+            if resp:
+                user = User.query.filter_by(employee_no=resp).first()
                 response_object = {
                     'status': 'success',
                     'data': {
-                        'user_id': user.id,
+                        'user_id': user.employee_no,
                         'email': user.email,
-                        'admin': user.admin,
-                        'registered_on': str(user.registered_on)
                     }
                 }
                 return response_object, 200
@@ -96,21 +94,21 @@ class Auth:
     @staticmethod
     def get_user_from_token(token):
         # get the auth token
-        auth_token = token
-        if auth_token:
-            auth_token = auth_token
-        else:
-            auth_token = ''
-        if auth_token:
-            resp = User.decode_auth_token(auth_token)
-            if not isinstance(resp, str):
+        # auth_token = token
+        # if auth_token:
+        #     auth_token = auth_token
+        # else:
+        #     auth_token = ''
+        if token:
+            resp = User.decode_auth_token(token)
+            if resp:
                 # user = User.query.filter_by(id=resp).first()
                 user = User.query\
                     .join(UserGroup, User.group_id == UserGroup.group_id)\
-                    .add_columns(User.username, UserGroup.group_name)\
-                    .filter(User.id == resp).first()
-
-                return {'username': user.username, 'group_name': user.group_name}, 200
+                    .add_columns(User.login_name, UserGroup.group_name)\
+                    .filter(User.employee_no == resp).first()
+                print(user)
+                return {'login_name': user.login_name, 'group_name': user.group_name}, 200
             response_object = {
                 'status': 'fail',
                 'message': resp

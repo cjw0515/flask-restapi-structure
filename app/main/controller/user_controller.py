@@ -30,10 +30,11 @@ class UserList(Resource):
 @api.response(404, 'User not found.')
 class User(Resource):
     @api.doc('get a user')
-    @api.marshal_with(user_info)
+    @api.marshal_with(_user)
     def get(self, public_id):
         """get a user given its identifier"""
         user = get_a_user(public_id)
+        print(user)
         if not user:
             api.abort(404)
         else:

@@ -5,17 +5,28 @@ from app.main.model.blacklist import BlacklistToken
 from ..config import key
 
 class User(db.Model):
-    """ User Model for storing user related details """
+    """
+
+    """
     __tablename__ = "user"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(191), unique=True, nullable=False)
-    registered_on = db.Column(db.DateTime, nullable=False)
-    admin = db.Column(db.Boolean, nullable=False, default=False)
-    public_id = db.Column(db.String(191), unique=True)
-    username = db.Column(db.String(50), unique=True)
-    password_hash = db.Column(db.String(191))
-    group_id = db.Column(db.Integer, nullable=False, default=1)
+    employee_no = db.Column(db.String(20), primary_key=True)
+    login_name = db.Column(db.String(40), unique=True, nullable=False)
+    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(40))
+    user_password = db.Column(db.String(255))
+    public_id = db.Column(db.String(255), unique=True)
+    phone_number = db.Column(db.String(20))
+    cell_number = db.Column(db.String(20))
+    gender = db.Column(db.Boolean, nullable=False)
+    date_of_birth = db.Column(db.DateTime)
+    department_id = db.Column(db.String(3), nullable=False)
+    job_id = db.Column(db.String(3), nullable=False)
+    group_id = db.Column(db.Integer, nullable=False)
+    hired_date = db.Column(db.DateTime)
+    retire_date = db.Column(db.DateTime)
+    create_date = db.Column(db.DateTime, default=db.func.now())
+    update_date = db.Column(db.DateTime)
 
     @property
     def password(self):
@@ -23,13 +34,13 @@ class User(db.Model):
 
     @password.setter
     def password(self, password):
-        self.password_hash = flask_bcrypt.generate_password_hash(password).decode('utf-8')
+        self.user_password = flask_bcrypt.generate_password_hash(password).decode('utf-8')
 
     def check_password(self, password):
-        return flask_bcrypt.check_password_hash(self.password_hash, password)
+        return flask_bcrypt.check_password_hash(self.user_password, password)
 
     def __repr__(self):
-        return "<User '{}'>".format(self.username)
+        return "<User '{}'>".format(self.login_name)
 
     def encode_auth_token(self, user_id):
         """

@@ -1,5 +1,5 @@
 from app.main import db
-from app.main.model.group import UserGroup
+from app.main.model.user_group import UserGroup
 
 
 def save_new_group(data):
