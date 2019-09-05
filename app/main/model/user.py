@@ -5,10 +5,8 @@ from app.main.model.blacklist import BlacklistToken
 from ..config import key
 
 class User(db.Model):
-    """
-
-    """
     __tablename__ = "user"
+    __bind_key__ = "test"
 
     employee_no = db.Column(db.String(20), primary_key=True)
     login_name = db.Column(db.String(40), unique=True, nullable=False)
