@@ -3,19 +3,20 @@ from sqlalchemy import CHAR, Column, DateTime, ForeignKey, String, text
 from sqlalchemy.dialects.mysql import INTEGER, SMALLINT, TINYINT
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from app.main import db
 
 Base = declarative_base()
 metadata = Base.metadata
 
 
-class CodeAge(Base):
+class CodeAge(db.Model):
     __tablename__ = 'code_age'
 
-    age_no = Column(INTEGER(10), primary_key=True, nullable=False, comment='나이')
-    gbn = Column(CHAR(1), primary_key=True, nullable=False, comment='구분. C=그룹. A=별칭')
-    age_name = Column(String(64), primary_key=True, nullable=False, comment='나이 명칭')
-    use_yn = Column(TINYINT(1), primary_key=True, nullable=False, server_default=text("'1'"), comment='사용여부')
-    reg_date = Column(DateTime, primary_key=True, nullable=False, server_default=text("CURRENT_TIMESTAMP"), comment='등록일시')
+    age_no = db.Column(INTEGER(10), primary_key=True, nullable=False, comment='나이')
+    gbn = db.Column(CHAR(1), primary_key=True, nullable=False, comment='구분. C=그룹. A=별칭')
+    age_name = db.Column(String(64), primary_key=True, nullable=False, comment='나이 명칭')
+    use_yn = db.Column(TINYINT(1), primary_key=True, nullable=False, server_default=text("'1'"), comment='사용여부')
+    reg_date = db.Column(DateTime, primary_key=True, nullable=False, server_default=text("CURRENT_TIMESTAMP"), comment='등록일시')
 
 
 class CodeMast(Base):

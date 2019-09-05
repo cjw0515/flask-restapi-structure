@@ -27,6 +27,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = db_options2
     SQLALCHEMY_BINDS = {
         'test': db_options1,
         'dev': db_options2
@@ -60,4 +61,4 @@ config_by_name = dict(
 key = Config.SECRET_KEY
 
 if __name__ == "__main__":
-    print(db_options)
+    print(db_options2)
