@@ -7,14 +7,19 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # about flask_sqlalchemy : https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
 load_dotenv(find_dotenv())
-db_options = "mysql+pymysql://{user}:{pwd}@{ip}/{db}?charset=utf8".format(
-    user=os.getenv("USER"),
-    pwd=os.getenv("PASSWORD"),
-    ip=os.getenv("IP"),
-    db=os.getenv("DB"),
+db_options1 = "mysql+pymysql://{user}:{pwd}@{ip}/{db}?charset=utf8".format(
+    user=os.getenv("TESTUSER"),
+    pwd=os.getenv("TESTPASSWORD"),
+    ip=os.getenv("TESTIP"),
+    db=os.getenv("TESTDB"),
+)
+db_options2 = "mysql+pymysql://{user}:{pwd}@{ip}/{db}?charset=utf8".format(
+    user=os.getenv("DEVUSER"),
+    pwd=os.getenv("DEVPASSWORD"),
+    ip=os.getenv("DEVIP"),
+    db=os.getenv("DEVDB"),
 )
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
@@ -22,14 +27,20 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = db_options
+    SQLALCHEMY_BINDS = {
+        'test': db_options1,
+        'dev': db_options2
+    }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = db_options
+    SQLALCHEMY_DATABASE_URI = {
+        db_options1,
+        db_options2
+    }
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
