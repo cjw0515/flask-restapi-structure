@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv, find_dotenv
 import unittest
 
 from flask_migrate import Migrate, MigrateCommand
@@ -15,22 +16,32 @@ from app.main.model.group_permission import GroupPermission
 from app.main.model.user_permission import UserPermission
 from app.main.model.user_job import UserJob
 
-
-app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+"""
+flask_script : https://flask-script.readthedocs.io/en/latest/
+flask_migrate : https://flask-migrate.readthedocs.io/en/latest/
+"""
+load_dotenv(find_dotenv())
+"""
+    * 환경변수
+        dev
+        test
+        prod
+"""
+app = create_app(os.getenv('ADMIN_APP_ENV') or 'dev')
 CORS(app)
 app.register_blueprint(blueprint)
 app.app_context().push()
 
-# flask_script : https://flask-script.readthedocs.io/en/latest/
 manager = Manager(app)
-# flask_migrate : https://flask-migrate.readthedocs.io/en/latest/
 migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
 
+
 @manager.command
 def run():
-    app.run()
+    app.run(port=os.getenv('PORT'))
+
 
 @manager.command
 def test():
@@ -40,6 +51,7 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
 
 if __name__ == '__main__':
     manager.run()
