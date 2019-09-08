@@ -34,7 +34,6 @@ class User(Resource):
     def get(self, public_id):
         """get a user given its identifier"""
         user = get_a_user(public_id)
-        print(user)
         if not user:
             api.abort(404)
         else:

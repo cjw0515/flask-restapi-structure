@@ -26,7 +26,6 @@ class TodoList(Resource):
     @api.expect(_todo, validate=True)
     def post(self):
         data = request.json
-        print(data)
         return insert_todo(data=data)
 
 @api.route('/<id>')

@@ -35,8 +35,9 @@ class CodeMast(db.Model):
     parent = relationship('CodeMast', remote_side=[code_no])
 
 
-class Insti(Base):
+class Insti(db.Model):
     __tablename__ = 'insti'
+    __bind_key__ = "insti"
 
     insti_no = Column(INTEGER(10), primary_key=True)
     insti_id = Column(String(32), nullable=False, index=True)
@@ -63,8 +64,9 @@ class Insti(Base):
     use_yn = Column(TINYINT(1), nullable=False, server_default=text("'1'"))
 
 
-class InstiAddres(Base):
+class InstiAddres(db.Model):
     __tablename__ = 'insti_address'
+    __bind_key__ = "insti"
 
     insti_no = Column(INTEGER(11), primary_key=True)
     latitude = Column(String(32))
@@ -76,8 +78,9 @@ class InstiAddres(Base):
     old_zip = Column(String(8), nullable=False)
 
 
-class Place(Base):
+class Place(db.Model):
     __tablename__ = 'place'
+    __bind_key__ = "insti"
 
     place_no = Column(INTEGER(10), primary_key=True, comment='위치 식별자')
     gbn_no = Column(INTEGER(10), nullable=False, comment='장소 구분자')
@@ -93,8 +96,9 @@ class Place(Base):
     upd_date = Column(DateTime, comment='마지막 수정일시')
 
 
-class InstiAddition(Base):
+class InstiAddition(db.Model):
     __tablename__ = 'insti_addition'
+    __bind_key__ = "insti"
 
     insti_no = Column(ForeignKey('insti.insti_no'), primary_key=True, nullable=False)
     item_name = Column(CHAR(2), primary_key=True, nullable=False)
@@ -106,8 +110,9 @@ class InstiAddition(Base):
     insti = relationship('Insti')
 
 
-class InstiCharge(Base):
+class InstiCharge(db.Model):
     __tablename__ = 'insti_charge'
+    __bind_key__ = "insti"
 
     insti_no = Column(ForeignKey('insti.insti_no'), primary_key=True, nullable=False)
     subject = Column(String(128), primary_key=True, nullable=False)
@@ -127,8 +132,9 @@ class InstiCharge(Base):
     insti = relationship('Insti')
 
 
-class InstiDetail(Base):
+class InstiDetail(db.Model):
     __tablename__ = 'insti_detail'
+    __bind_key__ = "insti"
 
     insti_no = Column(ForeignKey('insti.insti_no'), primary_key=True, nullable=False, comment='학원번호')
     gbn = Column(CHAR(2), primary_key=True, nullable=False, comment='구분. DS:세부과목, AG:대상나이')
@@ -138,8 +144,9 @@ class InstiDetail(Base):
     insti = relationship('Insti')
 
 
-class InstiTogether(Base):
+class InstiTogether(db.Model):
     __tablename__ = 'insti_together'
+    __bind_key__ = "insti"
 
     insti_no = Column(ForeignKey('insti.insti_no'), primary_key=True, nullable=False)
     target_insti_no = Column(ForeignKey('insti.insti_no'), primary_key=True, nullable=False, index=True)

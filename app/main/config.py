@@ -9,7 +9,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 
-def get_db_uri(env="DEV", db_name="TEST"):
+def get_db_uri(env="DEV", db_name="CJW0515_DB"):
     return "mysql+pymysql://{user}:{pwd}@{ip}/{db}?charset=utf8".format(
         user=os.getenv("{env}_USER".format(env=env)),
         pwd=os.getenv("{env}_PASSWORD".format(env=env)),
@@ -26,10 +26,10 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     ENV = "development"
-    SQLALCHEMY_DATABASE_URI = get_db_uri(env="TEST", db_name=CJW0515_DB)
+    SQLALCHEMY_DATABASE_URI = get_db_uri(env="DEV", db_name=BO)
     SQLALCHEMY_BINDS = {
         # 'test': get_db_uri(env="TEST", db_name=CJW0515_DB),
-        'bo': get_db_uri(env="TEST", db_name=BO),
+        # 'bo': get_db_uri(env="TEST", db_name=BO),
         'insti': get_db_uri(env="TEST", db_name=INSTI),
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -64,4 +64,5 @@ config_by_name = dict(
 
 key = Config.SECRET_KEY
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    print(os.urandom(16))

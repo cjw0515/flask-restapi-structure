@@ -42,7 +42,8 @@ class Auth:
             auth_token = ''
         if auth_token:
             resp = User.decode_auth_token(auth_token)
-            if not isinstance(resp, str):
+
+            if resp:
                 # mark the token as blacklisted
                 return save_token(token=auth_token)
             else:
@@ -107,7 +108,6 @@ class Auth:
                     .join(UserGroup, User.group_id == UserGroup.group_id)\
                     .add_columns(User.login_name, UserGroup.group_name)\
                     .filter(User.employee_no == resp).first()
-                print(user)
                 return {'login_name': user.login_name, 'group_name': user.group_name}, 200
             response_object = {
                 'status': 'fail',
