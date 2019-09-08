@@ -2,7 +2,6 @@ from .. import db
 
 class Todo(db.Model):
     __tablename__ = "todo"
-    __bind_key__ = "test"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     todo = db.Column(db.String(255), nullable=False)

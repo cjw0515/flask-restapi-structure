@@ -11,6 +11,7 @@ metadata = Base.metadata
 
 class CodeAge(db.Model):
     __tablename__ = 'code_age'
+    __bind_key__ = "insti"
 
     age_no = db.Column(INTEGER(10), primary_key=True, nullable=False, comment='나이')
     gbn = db.Column(CHAR(1), primary_key=True, nullable=False, comment='구분. C=그룹. A=별칭')
@@ -19,8 +20,9 @@ class CodeAge(db.Model):
     reg_date = db.Column(DateTime, primary_key=True, nullable=False, server_default=text("CURRENT_TIMESTAMP"), comment='등록일시')
 
 
-class CodeMast(Base):
+class CodeMast(db.Model):
     __tablename__ = 'code_mast'
+    __bind_key__ = "insti"
 
     code_no = Column(INTEGER(10), primary_key=True)
     parent_code_no = Column(ForeignKey('code_mast.code_no'), nullable=False, index=True, comment='부모 코드')

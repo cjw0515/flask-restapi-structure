@@ -2,7 +2,6 @@ from .. import db
 
 class UserJob(db.Model):
     __tablename__ = "user_job"
-    __bind_key__ = "test"
 
     job_id = db.Column(db.Integer, primary_key=True)
     job_name = db.Column(db.String(20), nullable=False)

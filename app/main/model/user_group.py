@@ -2,7 +2,6 @@ from .. import db
 
 class UserGroup(db.Model):
     __tablename__ = "user_group"
-    __bind_key__ = "test"
 
     group_id = db.Column(db.Integer, primary_key=True)
     group_name = db.Column(db.String(20), nullable=False)

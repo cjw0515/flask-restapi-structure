@@ -2,7 +2,6 @@ from .. import db
 
 class UserPermission(db.Model):
     __tablename__ = "user_permission"
-    __bind_key__ = "test"
 
     permission_id = db.Column(db.Integer, primary_key=True)
     permission_name = db.Column(db.String(20), nullable=False)

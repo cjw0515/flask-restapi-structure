@@ -7,7 +7,6 @@ class BlacklistToken(db.Model):
     Token Model for storing JWT tokens
     """
     __tablename__ = 'blacklist_tokens'
-    __bind_key__ = "test"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     token = db.Column(db.String(191), unique=True, nullable=False)
