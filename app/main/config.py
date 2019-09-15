@@ -30,7 +30,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_BINDS = {
         # 'test': get_db_uri(env="TEST", db_name=CJW0515_DB),
         # 'bo': get_db_uri(env="TEST", db_name=BO),
-        'insti': get_db_uri(env="TEST", db_name=INSTI),
+        'insti': get_db_uri(env="DEV", db_name=INSTI),
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
