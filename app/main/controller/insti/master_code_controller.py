@@ -16,7 +16,6 @@ class MasterCodeList(Resource):
     @api.marshal_list_with(masterCode)
     def get(self, code_number):
         result = get_a_codes(code_number)
-        print(result)
         return result
 
 
@@ -28,6 +27,4 @@ class MasterCodeList2(Resource):
     @api.doc('MasterCodeList data')
     @api.marshal_list_with(masterCode)
     def get(self, parent_code, depth):
-        result = get_codes(parent_code, depth)
-        print(result)
-        return result
+        return get_codes(parent_code, depth)

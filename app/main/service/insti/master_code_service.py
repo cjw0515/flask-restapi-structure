@@ -8,5 +8,4 @@ def get_a_codes(code):
 
 
 def get_codes(parent_code, depth):
-    print('parent_code_no', parent_code)
     return CodeMast.query.filter_by(parent_code_no=parent_code, depth=depth).all()
