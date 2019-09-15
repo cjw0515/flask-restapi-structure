@@ -1,6 +1,12 @@
 from app.main import db
-from app.main.model.insti.models import CodeAge
 
-def get_codes():
+from app.main.model.insti.models import CodeMast
 
-    return CodeAge.query.all()
+
+def get_a_codes(code):
+    return CodeMast.query.filter_by(code_no=code).first()
+
+
+def get_codes(parent_code, depth):
+    print('parent_code_no', parent_code)
+    return CodeMast.query.filter_by(parent_code_no=parent_code, depth=depth).all()
