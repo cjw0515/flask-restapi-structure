@@ -12,4 +12,5 @@ class MasterCodeDto:
         'depth': fields.Integer(discription='depth', attribute='depth'),
         'regId': fields.String(discription='생성자', attribute='reg_id'),
         'regDate': fields.String(discription='생성 일자', attribute='reg_date'),
+        'childCnt': fields.Integer(discription='자식 수', attribute='anon_1_cnt'),
     })
