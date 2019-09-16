@@ -1,5 +1,5 @@
 from flask import request
-from flask_restplus import Resource
+from flask_restplus import Resource, marshal, fields
 from app.main.util.decorator import token_required
 from app.main.util.insti.master_code_dto import MasterCodeDto
 from app.main.service.insti.master_code_service import get_codes, get_a_codes
@@ -27,4 +27,9 @@ class MasterCodeList2(Resource):
     @api.doc('MasterCodeList data')
     @api.marshal_list_with(masterCode)
     def get(self, parent_code, depth):
-        return get_codes(parent_code, depth)
+        res = get_codes(parent_code, depth)
+        print(res)
+        data = {'a': 100, 'b': 'foo', 'c': None}
+        mfields = {'a': fields.Raw, 'c': fields.Raw, 'd': fields.Raw}
+        print(marshal(res, masterCode))
+        return res
