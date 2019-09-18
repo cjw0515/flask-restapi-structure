@@ -32,15 +32,22 @@ class LogoutAPI(Resource):
         return Auth.logout_user(data=auth_header)
 
 
-@api.route('/user/<token>')
-@api.param('token', 'The User token')
+@api.route('/user')
 @api.response(404, 'User not found.')
 class UserToken(Resource):
     @api.doc('get a user from token')
     @api.marshal_with(user_info_permission)
-    def get(self, token):
+    def get(self):
         # get auth token
-        user = Auth.get_user_from_token(token)
+        auth_token = request.headers.get('Authorization')
+
+        # print(auth_token)
+        if auth_token:
+            auth_token = auth_token.split(" ")[1]
+        else:
+            auth_token = ''
+
+        user = Auth.get_user_from_token(auth_token)
         if not user:
             api.abort(404)
         else:
