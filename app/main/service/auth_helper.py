@@ -94,14 +94,10 @@ class Auth:
 
     @staticmethod
     def get_user_from_token(token):
-        # get the auth token
-        # auth_token = token
-        # if auth_token:
-        #     auth_token = auth_token
-        # else:
-        #     auth_token = ''
+
         if token:
             resp = User.decode_auth_token(token)
+            print('resp : ', resp)
             if resp:
                 # user = User.query.filter_by(id=resp).first()
                 user = User.query\
