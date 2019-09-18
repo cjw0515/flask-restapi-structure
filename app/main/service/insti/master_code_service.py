@@ -6,6 +6,18 @@ def get_a_codes(code):
     return CodeMast.query.filter_by(code_no=code).first()
 
 
+def update_code(code_number, data):
+    code = CodeMast.query.filter_by(code_no=code_number).first()
+    code.code_name = data['codeName']
+    code.use_yn = data['status']
+
+    db.session.commit()
+
+    return {
+        'status': 'success',
+        'message': 'Successfully updated.'
+    }, 201
+
 def get_codes(parent_code, depth):
     """
     SELECT a.* 	  
@@ -30,11 +42,6 @@ def get_codes(parent_code, depth):
 
     tmp_list = []
     for obj in result:
-        tmp_list.append(obj[0])
-        # print(obj[0].parent_code_no)
-
-    # [(< CodeMast 100 >, 2), (< CodeMast 101 >, 2), (< CodeMast 102 >, 1), (< CodeMast 106 >, 1), (< CodeMast 108 >, 1),
-    #  (< CodeMast 110 >, 1)]
-
+        tmp_list.append(obj)
 
     return tmp_list
