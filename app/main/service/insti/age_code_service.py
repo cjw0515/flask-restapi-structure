@@ -3,7 +3,6 @@ from app.main.model.insti.models import CodeAge
 
 
 def get_codes(page=1, per_page=10):
-
     page_obj = CodeAge.query.paginate(page=page, per_page=per_page)
     # print('has_next : ', page_obj.has_next)
     # print('has_prev : ', page_obj.has_prev)
@@ -19,4 +18,23 @@ def get_codes(page=1, per_page=10):
     # print('query : ', page_obj.query)
     # print('total : ', page_obj.total)
 
-    return page_obj.items
+    return {'list': page_obj.items, 'total': page_obj.total, 'perPage': page_obj.per_page}
+
+
+def update_code(data, code_keys: dict = {}):
+    code = CodeAge.query.filter_by(age_no=code_keys['age_no'],
+                                   gbn=code_keys['gbn'],
+                                   age_name=code_keys['age_name'],
+                                   use_yn=code_keys["use_yn"]).first()
+
+    code.age_no = data['ageNo']
+    code.gbn = data['gbn']
+    code.age_name = data['ageName']
+    code.use_yn = data['status']
+
+    db.session.commit()
+
+    return {
+        'status': 'success',
+        'message': 'Successfully updated.'
+    }, 201
