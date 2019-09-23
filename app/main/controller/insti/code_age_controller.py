@@ -12,14 +12,8 @@ ageCode = CodeAgeDto.code_age
 @api.route('/')
 class AgeCodeList(Resource):
     @api.doc('ageCode data')
-    # @api.marshal_list_with(ageCode, envelope='data')
     def get(self):
-        page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('perPage', 10))
-        print('page : ', request.args.get('page'))
-        result = get_codes(page=page, per_page=per_page)
-        # {'list': page_obj.items, 'total': page_obj.total, 'perPage': page_obj.per_page}
-
+        result = get_codes()
         list = marshal(result['list'], ageCode)
         data = {
             'data': {

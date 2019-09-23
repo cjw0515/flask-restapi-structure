@@ -1,9 +1,27 @@
+from flask import request
 from app.main import db
 from app.main.model.insti.models import CodeAge
+from app.main.util.utils import filter_query
 
 
-def get_codes(page=1, per_page=10):
-    page_obj = CodeAge.query.paginate(page=page, per_page=per_page)
+def get_codes():
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('perPage', 10))
+
+    query = request.args.get('query')
+    code = request.args.get('code')
+    tmp_filters = []
+    if code:
+        tmp_filters.append(CodeAge.gbn == code)
+    if request.args.get('queryType') and query:
+        if request.args.get('queryType') == 'age':
+            tmp_filters.append(CodeAge.age_no == query)
+        elif request.args.get('queryType') == 'ageName':
+            tmp_filters.append(CodeAge.age_name.like('%{query}%'.format(query=query)))
+
+    filters = tuple(tmp_filters)
+    page_obj = db.session.query(CodeAge).filter(*filters).paginate(page=page, per_page=per_page)
+
     # print('has_next : ', page_obj.has_next)
     # print('has_prev : ', page_obj.has_prev)
     # for page in page_obj.iter_pages():
@@ -22,11 +40,9 @@ def get_codes(page=1, per_page=10):
 
 
 def update_code(data, code_keys: dict = {}):
-    code = CodeAge.query.filter_by(age_no=code_keys['age_no'],
+    code = CodeAge.query.filter_by(age_no=code_keys['ageNo'],
                                    gbn=code_keys['gbn'],
-                                   age_name=code_keys['age_name'],
-                                   use_yn=code_keys["use_yn"]).first()
-
+                                   age_name=code_keys['ageName']).first()
     code.age_no = data['ageNo']
     code.gbn = data['gbn']
     code.age_name = data['ageName']
