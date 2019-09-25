@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource, marshal
 from app.main.util.decorator import token_required
 from app.main.util.insti.code_age_dto import CodeAgeDto
-from app.main.service.insti.age_code_service import get_codes, update_code
+from app.main.service.insti.age_code_service import get_codes, update_code, insert_agecode
 
 
 api = CodeAgeDto.api
@@ -22,8 +22,14 @@ class AgeCodeList(Resource):
                 'perPage': result['perPage']
             }
         }
-
         return data
+
+    @api.response(201, 'ageCode successfully created.')
+    @api.doc('create a new ageCode')
+    @api.expect(ageCode)
+    def post(self):
+        data = request.json
+        return insert_agecode(data=data)
 
     # @token_required
     @api.doc('age 코드정보 수정')

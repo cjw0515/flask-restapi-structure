@@ -39,6 +39,22 @@ def get_codes():
     return {'list': page_obj.items, 'total': page_obj.total, 'perPage': page_obj.per_page}
 
 
+def insert_agecode(data):
+    new_age_code = CodeAge(
+        age_no=data['age'],
+        gbn=data['gbn'],
+        age_name=data['ageName'],
+        use_yn=1
+    )
+    save_changes(new_age_code)
+
+    response_object = {
+        'status': 'success',
+        'message': 'Successfully registered.'
+    }
+    return response_object, 201
+
+
 def update_code(data, code_keys: dict = {}):
     code = CodeAge.query.filter_by(age_no=code_keys['ageNo'],
                                    gbn=code_keys['gbn'],
@@ -54,3 +70,8 @@ def update_code(data, code_keys: dict = {}):
         'status': 'success',
         'message': 'Successfully updated.'
     }, 201
+
+
+def save_changes(data):
+    db.session.add(data)
+    db.session.commit()
