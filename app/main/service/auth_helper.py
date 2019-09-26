@@ -22,7 +22,7 @@ class Auth:
             else:
                 response_object = {
                     'status': 'fail',
-                    'message': 'login name or password does not match.'
+                    'message': '아이디나 비밀번호가 맞지 않습니다.'
                 }
                 return response_object, 401
 
@@ -43,13 +43,13 @@ class Auth:
         if auth_token:
             resp = User.decode_auth_token(auth_token)
 
-            if resp:
+            if resp['res'] is True:
                 # mark the token as blacklisted
                 return save_token(token=auth_token)
             else:
                 response_object = {
                     'status': 'fail',
-                    'message': resp
+                    'message': resp['msg']
                 }
                 return response_object, 401
         else:
@@ -67,11 +67,12 @@ class Auth:
             auth_token = auth_token.split(" ")[1]
         else:
             auth_token = ''
-        # print(auth_token)
+        # print('auth_token : ', auth_token)
         if auth_token:
             resp = User.decode_auth_token(auth_token)
-            if resp:
-                user = User.query.filter_by(employee_no=resp).first()
+            # print('errormsg : ', resp['msg'])
+            if resp['res'] is True:
+                user = User.query.filter_by(employee_no=resp['msg']).first()
                 response_object = {
                     'status': 'success',
                     'data': {
@@ -82,7 +83,7 @@ class Auth:
                 return response_object, 200
             response_object = {
                 'status': 'fail',
-                'message': resp
+                'message': resp['msg']
             }
             return response_object, 401
         else:
@@ -97,17 +98,17 @@ class Auth:
 
         if token:
             resp = User.decode_auth_token(token)
-            print('resp : ', resp)
-            if resp:
+            # print('resp : ', resp)
+            if resp['res'] is True:
                 # user = User.query.filter_by(id=resp).first()
                 user = User.query\
                     .join(UserGroup, User.group_id == UserGroup.group_id)\
                     .add_columns(User.login_name, UserGroup.group_name)\
-                    .filter(User.employee_no == resp).first()
+                    .filter(User.employee_no == resp['msg']).first()
                 return {'login_name': user.login_name, 'group_name': user.group_name}, 200
             response_object = {
                 'status': 'fail',
-                'message': resp
+                'message': resp['msg']
             }
             return response_object, 401
         else:
