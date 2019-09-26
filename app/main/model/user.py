@@ -39,6 +39,10 @@ class User(db.Model):
     def __repr__(self):
         return "<User '{}'>".format(self.login_name)
 
+    """
+    pyJWT doc : https://pyjwt.readthedocs.io/en/latest/usage.html
+    rfc 표준 JSON web token spec :  https://tools.ietf.org/html/rfc7519#section-4.1.4
+    """
     def encode_auth_token(self, user_id):
         """
         Generates the Auth Token
@@ -66,13 +70,14 @@ class User(db.Model):
         :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, key)
+            payload = jwt.decode(auth_token, key, algorithm='HS256')
+            # print('payload : ', payload)
             is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
             if is_blacklisted_token:
-                return 'Token blacklisted. Please log in again.'
+                return {'res': False, 'msg': '블랙리스트된 토큰입니다. 다시 로그인해 주세요.'}
             else:
-                return payload['sub']
+                return {'res': True, 'msg': payload['sub']}
         except jwt.ExpiredSignatureError:
-            return 'Signature expired. Please log in again.'
+            return {'res': False, 'msg': '인증이 만료되었습니다. 다시 로그인해 주세요.'}
         except jwt.InvalidTokenError:
-            return 'Invalid token. Please log in again.'
+            return {'res': False, 'msg': '인증이 만료되었습니다. 다시 로그인해 주세요.'}
