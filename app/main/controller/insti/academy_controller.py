@@ -1,20 +1,19 @@
 from flask import request
 from flask_restplus import Resource, marshal
-from app.main.util.decorator import token_required
-from app.main.util.insti.code_age_dto import CodeAgeDto
-from app.main.service.insti.age_code_service import get_codes, update_code, insert_agecode
+from app.main.util.insti.academy_dto import AcademyDto
+from app.main.service.insti.academy_service import get_academies, update_academy, insert_academy
 
 
-api = CodeAgeDto.api
-ageCode = CodeAgeDto.code_age
+api = AcademyDto.api
+academy = AcademyDto.academy
 
 
 @api.route('/')
-class AgeCodeList(Resource):
-    @api.doc('ageCode data')
+class AcademyList(Resource):
+    @api.doc('academy data')
     def get(self):
-        result = get_codes()
-        list = marshal(result['list'], ageCode)
+        result = get_academies()
+        list = marshal(result['list'], academy)
         data = {
             'data': {
                 'list': list,
@@ -24,17 +23,17 @@ class AgeCodeList(Resource):
         }
         return data
 
-    @api.response(201, 'ageCode successfully created.')
-    @api.doc('create a new ageCode')
-    @api.expect(ageCode)
+    @api.response(201, 'academy successfully created.')
+    @api.doc('create a new academy')
+    @api.expect(academy)
     def post(self):
         data = request.json
-        return insert_agecode(data=data)
+        return insert_academy(data=data)
 
     # @token_required
     @api.doc('age 코드정보 수정')
     @api.response(201, '수정 성공.')
-    @api.expect(ageCode)
+    @api.expect(academy)
     def put(self):
         data = request.json
         params = {
@@ -43,4 +42,4 @@ class AgeCodeList(Resource):
             'ageName': request.args.get('ageName'),
             'status': request.args.get('status')
         }
-        return update_code(data, params)
+        return update_academy(data, params)
