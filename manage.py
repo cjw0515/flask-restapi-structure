@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv, find_dotenv
+from app.main.config import get_db_uri
+from definitions import INSTI
 import unittest
 
 from flask_migrate import Migrate, MigrateCommand
@@ -54,4 +56,7 @@ def test():
 
 
 if __name__ == '__main__':
+    # print(get_db_uri(env="DEV", db_name=INSTI))
+    # 모델 업데이트 스크립트
+    # flask-sqlacodegen (주소) --flask > models.py
     manager.run()
