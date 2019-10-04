@@ -19,14 +19,21 @@ class AcademyDto:
         'address1': fields.String(description='address1', attribute='address1'),
         'address2': fields.String(description='address2', attribute='address2'),
         'address3': fields.String(description='address3', attribute='address3'),
+        'building': fields.String(description='building', attribute='building'),
+        'zipcode': fields.String(description='zipcode', attribute='zipcode'),
+        'oldAddress': fields.String(description='old_address', attribute='old_address'),
+        'oldZipcode': fields.String(description='old_zipcode', attribute='old_zipcode'),
         'latitude': fields.String(description='latitude', attribute='latitude'),
         'longitude': fields.String(description='longitude', attribute='longitude'),
+        'instiImg': fields.String(description='insti_img', attribute='insti_img'),
         'founder': fields.String(description='founder', attribute='founder'),
         'numTeacher': fields.Integer(description='num_teacher', attribute='num_teacher'),
         'score': fields.Integer(description='score', attribute='score'),
         'updDate': fields.DateTime(description='upd_date', attribute='upd_date'),
         'updId': fields.String(description='upd_id', attribute='upd_id'),
-        'useYn': fields.Integer(description='use_yn', attribute='use_yn')
+        'status': fields.Integer(description='use_yn', attribute='use_yn'),
+        'confirmYn': fields.Integer(description='use_yn', attribute='confirm_yn'),
+        'confirmDate': fields.DateTime(description='confirm_date', attribute='confirm_date'),
     })
 
 
