@@ -1,11 +1,12 @@
 from flask import request
 from flask_restplus import Resource, marshal
 from app.main.util.insti.academy_dto import AcademyDto
-from app.main.service.insti.academy_service import get_academies, update_academy, insert_academy
+from app.main.service.insti.academy_service import get_academies, update_academy, insert_academy, get_a_academy
 
 
 api = AcademyDto.api
 academy = AcademyDto.academy
+academy_addition = AcademyDto.academy_addition
 
 
 @api.route('/')
@@ -29,6 +30,27 @@ class AcademyList(Resource):
     def post(self):
         data = request.json
         return insert_academy(data=data)
+
+
+@api.route('/<insti_no>')
+@api.param('insti_no', '학원 키')
+@api.response(404, 'academy not found.')
+class User(Resource):
+    @api.doc('get a academy')
+    def get(self, insti_no):
+        """get a academy given its identifier"""
+        result = get_a_academy(insti_no)
+        tmp_data = marshal(result['insti'], academy)
+        tmp_data.update(marshal(result['instiAddition'], academy_addition))
+
+        data = {
+            'data': tmp_data
+        }
+
+        if not data:
+            api.abort(404)
+        else:
+            return data
 
     # @token_required
     @api.doc('age 코드정보 수정')

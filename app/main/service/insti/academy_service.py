@@ -1,6 +1,6 @@
 from flask import request
 from app.main import db
-from app.main.model.insti.models import Insti
+from app.main.model.insti.models import Insti, InstiAddition
 from app.main.util.utils import filter_query
 
 
@@ -23,6 +23,21 @@ def get_academies():
     page_obj = db.session.query(Insti).filter(*filters).paginate(page=page, per_page=per_page)
 
     return {'list': page_obj.items, 'total': page_obj.total, 'perPage': page_obj.per_page}
+
+
+def get_a_academy(insti_no):
+
+    # result = db.session.query(Insti, InstiAddition)\
+    #     .filter(Insti.insti_no == insti_no)\
+    #     .filter(Insti.insti_no == InstiAddition.insti_no)\
+    #     .first()
+
+    result = db.session.query(Insti, InstiAddition)\
+            .join(InstiAddition)\
+            .filter(Insti.insti_no == insti_no)\
+            .first()
+
+    return {'insti': result[0], 'instiAddition': result[1]}
 
 
 def insert_academy(data):
