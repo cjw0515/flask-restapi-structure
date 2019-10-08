@@ -32,7 +32,7 @@ class AcademyDto:
         'updDate': fields.DateTime(description='upd_date', attribute='upd_date'),
         'updId': fields.String(description='upd_id', attribute='upd_id'),
         'status': fields.Integer(description='use_yn', attribute='use_yn'),
-        'confirmYn': fields.Integer(description='use_yn', attribute='confirm_yn'),
+        'confirmYn': fields.String(description='use_yn', attribute='confirm_yn'),
         'confirmDate': fields.DateTime(description='confirm_date', attribute='confirm_date'),
     })
     academy_addition = api.model('academy_addition', {
