@@ -8,6 +8,8 @@ from .main.controller.user_group_controller import api as user_group_ns
 from .main.controller.insti.code_age_controller import api as age_code_ns
 from .main.controller.insti.master_code_controller import api as master_code_ns
 from .main.controller.insti.academy_controller import api as academy_code_ns
+from .main.controller.backoffice.admin_menu_controller import api as admin_menu_ns
+
 
 
 blueprint = Blueprint('api', __name__)
@@ -26,4 +28,5 @@ api.add_namespace(user_group_ns)
 api.add_namespace(age_code_ns)
 api.add_namespace(master_code_ns)
 api.add_namespace(academy_code_ns)
+api.add_namespace(admin_menu_ns)
 

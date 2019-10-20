@@ -17,6 +17,7 @@ from app.main.model.user import User
 from app.main.model.group_permission import GroupPermission
 from app.main.model.user_permission import UserPermission
 from app.main.model.user_job import UserJob
+from app.main.model.backoffice.admin_menu import AdminMenu
 
 """
 flask_script : https://flask-script.readthedocs.io/en/latest/
