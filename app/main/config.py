@@ -37,8 +37,9 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     DEBUG = True
+    ENV = "development"
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = ""
+    SQLALCHEMY_DATABASE_URI = get_db_uri(env="TEST", db_name=CJW0515_DB)
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
