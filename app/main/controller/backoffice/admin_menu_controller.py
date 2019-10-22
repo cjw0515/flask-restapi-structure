@@ -17,7 +17,7 @@ flask-restplus examples : https://flask-restplus.readthedocs.io/en/stable/exampl
 class AdminMenus(Resource):
     @api.doc('어드민 메뉴')
     def get(self):
-        return get_admin_menus()
+        return {'data': get_admin_menus()}
 
     @api.response(201, 'menu successfully created.')
     @api.doc('어드민 메뉴 추가')
