@@ -5,6 +5,7 @@ class AdminMenuDto:
     api = Namespace('adminMenu', description='어드민 메뉴')
 
     admin_menu = api.model('admin_menu', {
+        'id': fields.Integer(description='id', attribute='id'),
         'parentId': fields.Integer(description='parent_id', attribute='parent_id'),
         'name': fields.String(description='name', attribute='name'),
         'path': fields.String(description='path', attribute='path'),
@@ -18,6 +19,7 @@ class AdminMenuDto:
         'breadcrumb': fields.String(description='breadcrumb', attribute='breadcrumb'),
         'regDate': fields.DateTime(description='regdate', attribute='regdate'),
         'lastModUser': fields.String(description='last_mod_user', attribute='last_mod_user'),
+        'status': fields.String(description='status', attribute='status'),
     })
 
 

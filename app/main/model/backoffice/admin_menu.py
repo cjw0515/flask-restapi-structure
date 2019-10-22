@@ -19,6 +19,7 @@ class AdminMenu(db.Model):
     affix = db.Column(db.SmallInteger, nullable=False, default=False)
     breadcrumb = db.Column(db.SmallInteger, nullable=False, default=True)
 
+    status = db.Column(db.SmallInteger, nullable=False, default=1)
     regdate = db.Column(db.DateTime, nullable=False, default=db.func.now())
     update_date = db.Column(db.DateTime)
     last_mod_user = db.Column(db.String(50), nullable=False)
