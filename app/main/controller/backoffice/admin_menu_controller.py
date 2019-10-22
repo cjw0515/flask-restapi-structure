@@ -16,7 +16,6 @@ flask-restplus examples : https://flask-restplus.readthedocs.io/en/stable/exampl
 @api.route('/')
 class AdminMenus(Resource):
     @api.doc('어드민 메뉴')
-    @api.marshal_list_with(admin_menu, envelope='data')
     def get(self):
         return get_admin_menus()
 
