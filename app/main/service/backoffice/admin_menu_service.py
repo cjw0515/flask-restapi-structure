@@ -19,6 +19,7 @@ def insert_admin_menu(data):
         breadcrumb=data['breadcrumb'],
         regdate=data['regDate'],
         last_mod_user=data['lastModUser'],
+        component=data['component']
     )
 
     save_changes(new_menu)

@@ -7,6 +7,7 @@ class AdminMenuDto:
     admin_menu = api.model('admin_menu', {
         'id': fields.Integer(description='id', attribute='id'),
         'parentId': fields.Integer(description='parent_id', attribute='parent_id'),
+        'component': fields.String(description='component', attribute='component'),
         'name': fields.String(description='name', attribute='name'),
         'path': fields.String(description='path', attribute='path'),
         'hidden': fields.String(description='hidden', attribute='hidden'),

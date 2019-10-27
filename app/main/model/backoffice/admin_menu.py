@@ -10,6 +10,7 @@ class AdminMenu(db.Model):
     path = db.Column(db.String(50), nullable=False)
     hidden = db.Column(db.SmallInteger, nullable=False, default=False)
     redirect = db.Column(db.SmallInteger, nullable=False, default=False)
+    component = db.Column(db.String(150), nullable=False)
 
     # meta
     roles = db.Column(db.String(50), nullable=False)
