@@ -16,7 +16,7 @@ class AdminMenu(db.Model):
     roles = db.Column(db.String(50), nullable=False)
     title = db.Column(db.String(50), nullable=False)
     icon = db.Column(db.String(50))
-    no_chashe = db.Column(db.SmallInteger, nullable=False, default=False)
+    no_cache = db.Column(db.SmallInteger, nullable=False, default=False)
     affix = db.Column(db.SmallInteger, nullable=False, default=False)
     breadcrumb = db.Column(db.SmallInteger, nullable=False, default=True)
 

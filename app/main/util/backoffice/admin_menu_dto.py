@@ -15,7 +15,7 @@ class AdminMenuDto:
         'roles': fields.String(description='roles', attribute='roles'),
         'title': fields.String(description='title', attribute='title'),
         'icon': fields.String(description='icon', attribute='icon'),
-        'noChashe': fields.String(description='no_chashe', attribute='no_chashe'),
+        'noCache': fields.String(description='no_cache', attribute='no_cache'),
         'affix': fields.String(description='affix', attribute='affix'),
         'breadcrumb': fields.String(description='breadcrumb', attribute='breadcrumb'),
         'regDate': fields.DateTime(description='regdate', attribute='regdate'),
