@@ -10,17 +10,17 @@ class AdminMenuDto:
         'component': fields.String(description='component', attribute='component'),
         'name': fields.String(description='name', attribute='name'),
         'path': fields.String(description='path', attribute='path'),
-        'hidden': fields.String(description='hidden', attribute='hidden'),
-        'redirect': fields.String(description='redirect', attribute='redirect'),
+        'hidden': fields.Boolean(description='hidden', attribute='hidden'),
+        'redirect': fields.Boolean(description='redirect', attribute='redirect'),
         'roles': fields.String(description='roles', attribute='roles'),
         'title': fields.String(description='title', attribute='title'),
         'icon': fields.String(description='icon', attribute='icon'),
-        'noCache': fields.String(description='no_cache', attribute='no_cache'),
-        'affix': fields.String(description='affix', attribute='affix'),
-        'breadcrumb': fields.String(description='breadcrumb', attribute='breadcrumb'),
+        'noCache': fields.Boolean(description='no_cache', attribute='no_cache'),
+        'affix': fields.Boolean(description='affix', attribute='affix'),
+        'breadcrumb': fields.Boolean(description='breadcrumb', attribute='breadcrumb'),
         'regDate': fields.DateTime(description='regdate', attribute='regdate'),
         'lastModUser': fields.String(description='last_mod_user', attribute='last_mod_user'),
-        'status': fields.String(description='status', attribute='status'),
+        'status': fields.Boolean(description='status', attribute='status'),
     })
 
 
