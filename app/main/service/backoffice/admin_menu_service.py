@@ -47,27 +47,20 @@ def get_admin_menus():
 
 def generate_menus(menus: list):
     res = []
+    meta_keyarr = ['roles', 'title', 'icon', 'noCache', 'affix', 'breadcrumb']
     parsed_menus = marshal(menus, AdminMenuDto.admin_menu)
     for menu in parsed_menus:
         tmp_children = get_children_menu(menu['id'])
+        menu['meta'] = {}
+        for key in meta_keyarr:
+            menu['meta'][key] = menu[key]
+            del menu[key]
         if tmp_children:
-            menu['meta'] = {
-                'roles': menu['roles'],          # control the page roles (you can set multiple roles)
-                'title': menu['title'],          # the name show in sidebar and breadcrumb (recommend set)
-                'icon': menu['icon'],          # the icon show in the sidebar
-                'noCache': convert_bool(menu['noCache']),          # if set true, the page will no be cached(default is false)
-                'affix': convert_bool(menu['affix']) ,          # if set true, the tag will affix in the tags-view
-                'breadcrumb': convert_bool(menu['breadcrumb']),  # if set false, the item will hidden in breadcrumb(default is true)
-                # 'activeMenu': parsed_menus['activeMenu']   # if set path, the sidebar will highlight the path you set
-            }
             menu['children'] = generate_menus(tmp_children)
         res.append(menu)
 
     return res
 
-
-def convert_bool(v):
-    return True if int(v) == 1 else False
 
 def get_children_menu(menu_id):
     result = db.session.query(AdminMenu)\
