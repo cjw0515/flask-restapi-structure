@@ -19,6 +19,8 @@ class AdminMenuDto:
         'affix': fields.Boolean(description='affix', attribute='affix'),
         'breadcrumb': fields.Boolean(description='breadcrumb', attribute='breadcrumb'),
         'regDate': fields.DateTime(description='regdate', attribute='regdate'),
+        'regUser': fields.String(description='reg_user', attribute='reg_user'),
+        'updateDate': fields.DateTime(description='update_date', attribute='update_date'),
         'lastModUser': fields.String(description='last_mod_user', attribute='last_mod_user'),
         'status': fields.Boolean(description='status', attribute='status'),
     })

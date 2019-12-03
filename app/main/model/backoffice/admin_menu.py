@@ -22,6 +22,7 @@ class AdminMenu(db.Model):
 
     status = db.Column(db.Boolean, nullable=False, default=True)
     regdate = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    reg_user = db.Column(db.String(50), nullable=False)
     update_date = db.Column(db.DateTime)
     last_mod_user = db.Column(db.String(50), nullable=False)
 

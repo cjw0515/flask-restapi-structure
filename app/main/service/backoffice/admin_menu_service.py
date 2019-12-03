@@ -19,6 +19,7 @@ def insert_admin_menu(data):
         breadcrumb=data['breadcrumb'],
         regdate=data['regDate'],
         last_mod_user=data['lastModUser'],
+        reg_user=data['regUser'],
         component=data['component']
     )
 
@@ -38,9 +39,6 @@ def get_admin_menus():
     3. 상위메뉴의 children에 하위메뉴 집어넣기
     """
     result = get_children_menu(0)
-    # print('ff', 'true' if get_children_menu(111) else 'false')
-    # parsed_res = marshal(result, AdminMenuDto.admin_menu)
-
     tmp = generate_menus(result)
     return tmp
 
@@ -68,6 +66,7 @@ def get_children_menu(menu_id):
              .all()
 
     return result
+
 
 def save_changes(data):
     db.session.add(data)
