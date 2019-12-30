@@ -5,6 +5,7 @@ from app.main.util.backoffice.admin_menu_dto import AdminMenuDto
 
 
 def insert_admin_menu(data):
+    print(data)
     new_menu = AdminMenu(
         parent_id=data['parentId'],
         name=data['name'],
@@ -14,7 +15,7 @@ def insert_admin_menu(data):
         roles=data['roles'],
         title=data['title'],
         icon=data['icon'],
-        no_chashe=data['noChashe'],
+        no_chashe=data['noCache'],
         affix=data['affix'],
         breadcrumb=data['breadcrumb'],
         regdate=data['regDate'],
@@ -22,6 +23,20 @@ def insert_admin_menu(data):
         reg_user=data['regUser'],
         component=data['component']
     )
+    {
+        'parentId': 0,
+        'name': '',
+        'path': '/test',
+        'redirect': '',
+        'regUser': 'cjw0515',
+        'status': True,
+        'roles': 'admin',
+        'title': '테스트메뉴',
+        'icon': 'list',
+        'noCache': False,
+        'affix': False,
+        'breadcrumb': False
+    }
 
     save_changes(new_menu)
 

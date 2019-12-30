@@ -21,7 +21,7 @@ class AdminMenus(Resource):
 
     @api.response(201, 'menu successfully created.')
     @api.doc('어드민 메뉴 추가')
-    @api.expect(admin_menu, validate=True)
+    @api.expect(admin_menu)
     def post(self):
         data = request.json
         return insert_admin_menu(data=data)

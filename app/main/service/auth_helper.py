@@ -12,13 +12,17 @@ class Auth:
             user = User.query.filter_by(login_name=data.get('username')).first()
             if user and user.check_password(data.get('password')):
                 auth_token = user.encode_auth_token(user.employee_no)
+                custom_header = {
+                    "X-USERNAME": user.login_name,
+                    'Access-Control-Allow-Headers': 'X-USERNAME'
+                }
                 if auth_token:
                     response_object = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
                         'Authorization': auth_token.decode()
                     }
-                    return response_object, 200
+                    return response_object, 200, custom_header
             else:
                 response_object = {
                     'status': 'fail',
