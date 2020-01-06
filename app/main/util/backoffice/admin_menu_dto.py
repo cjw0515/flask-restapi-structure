@@ -25,7 +25,10 @@ class AdminMenuDto:
         'status': fields.Boolean(description='status', attribute='status'),
     })
 
-
+    menu_status = api.model('menu_status', {
+        'id': fields.Integer(description='id', attribute='id'),
+        'status': fields.Boolean(description='status', attribute='status'),
+    })
 
 
 

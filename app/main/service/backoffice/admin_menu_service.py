@@ -2,41 +2,27 @@ from app.main import db
 from app.main.model.backoffice.admin_menu import AdminMenu
 from flask_restplus import marshal
 from app.main.util.backoffice.admin_menu_dto import AdminMenuDto
+import datetime
 
 
 def insert_admin_menu(data):
-    print(data)
     new_menu = AdminMenu(
         parent_id=data['parentId'],
         name=data['name'],
         path=data['path'],
-        hidden=data['hidden'],
+        hidden=False,
         redirect=data['redirect'],
         roles=data['roles'],
         title=data['title'],
         icon=data['icon'],
-        no_chashe=data['noCache'],
+        no_cache=data['noCache'],
         affix=data['affix'],
         breadcrumb=data['breadcrumb'],
-        regdate=data['regDate'],
-        last_mod_user=data['lastModUser'],
+        regdate=datetime.datetime.utcnow(),
+        last_mod_user="",
         reg_user=data['regUser'],
-        component=data['component']
+        component=""
     )
-    {
-        'parentId': 0,
-        'name': '',
-        'path': '/test',
-        'redirect': '',
-        'regUser': 'cjw0515',
-        'status': True,
-        'roles': 'admin',
-        'title': '테스트메뉴',
-        'icon': 'list',
-        'noCache': False,
-        'affix': False,
-        'breadcrumb': False
-    }
 
     save_changes(new_menu)
 
@@ -82,6 +68,17 @@ def get_children_menu(menu_id):
 
     return result
 
+
+def update_menu_status(id, data):
+    menu = AdminMenu.query.filter_by(id=id).first()
+    menu.hidden = data['status']
+
+    db.session.commit()
+
+    return {
+        'status': 'success',
+        'message': 'Successfully updated.'
+    }, 201
 
 def save_changes(data):
     db.session.add(data)
