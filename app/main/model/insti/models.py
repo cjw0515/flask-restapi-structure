@@ -61,15 +61,22 @@ class Insti(db.Model):
     latitude = db.Column(db.String(32))
     longitude = db.Column(db.String(32))
     insti_img = db.Column(db.String(128))
+    opentime_flex_yn = db.Column(db.Integer)
+    entran_exam_yn = db.Column(db.Integer)
+    homework_amount = db.Column(db.Integer)
     founder = db.Column(db.String(64))
     num_teacher = db.Column(db.SmallInteger)
+    num_limit = db.Column(db.SmallInteger)
+    like_cnt = db.Column(db.Integer)
     score = db.Column(db.Integer)
+    kakao_id = db.Column(db.Integer)
+    naver_id = db.Column(db.Integer)
+    reg_date = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
     upd_date = db.Column(db.DateTime)
     upd_id = db.Column(db.String(16))
     confirm_yn = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
     confirm_date = db.Column(db.DateTime)
     use_yn = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
-
 
 class InstiAddres(db.Model):
     __tablename__ = 'insti_address'
