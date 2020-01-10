@@ -26,6 +26,13 @@ class AcademyDto:
         'latitude': fields.String(description='latitude', attribute='latitude'),
         'longitude': fields.String(description='longitude', attribute='longitude'),
         'instiImg': fields.String(description='insti_img', attribute='insti_img'),
+        'opentimeFlexYn': fields.Integer(description='opentime_flex_yn', attribute='opentime_flex_yn'),
+        'entranExamYn': fields.Integer(description='entran_exam_yn', attribute='entran_exam_yn'),
+        'homeworkAmount': fields.Integer(description='homework_amount', attribute='homework_amount'),
+        'numLimit': fields.Integer(description='num_limit', attribute='num_limit'),
+        'kakaoId': fields.Integer(description='kakao_id', attribute='kakao_id'),
+        'naverId': fields.Integer(description='naver_id', attribute='naver_id'),
+        'likeCnt': fields.Integer(description='like_cnt', attribute='like_cnt'),
         'founder': fields.String(description='founder', attribute='founder'),
         'numTeacher': fields.Integer(description='num_teacher', attribute='num_teacher'),
         'score': fields.Integer(description='score', attribute='score'),
@@ -33,6 +40,7 @@ class AcademyDto:
         'updId': fields.String(description='upd_id', attribute='upd_id'),
         'status': fields.Integer(description='use_yn', attribute='use_yn'),
         'confirmYn': fields.String(description='use_yn', attribute='confirm_yn'),
+        'regDate': fields.DateTime(description='reg_date', attribute='reg_date'),
         'confirmDate': fields.DateTime(description='confirm_date', attribute='confirm_date'),
     })
     academy_addition = api.model('academy_addition', {
