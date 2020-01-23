@@ -1,7 +1,7 @@
 from app.main.model.user import User
 from app.main.model.user_group import UserGroup
 from ..service.blacklist_service import save_token
-
+import sqlalchemy
 
 class Auth:
 
@@ -29,12 +29,18 @@ class Auth:
                     'message': '아이디나 비밀번호가 맞지 않습니다.'
                 }
                 return response_object, 401
-
+        except sqlalchemy.exc.OperationalError as e:
+            print(e)
+            response_object = {
+                'status': 'fail',
+                'message': 'db와 연결이 끊겼습니다.'
+            }
+            return response_object, 500
         except Exception as e:
             print(e)
             response_object = {
                 'status': 'fail',
-                'message': 'Try again'
+                'message': '서버 오류입니다. 엔지니어를 불러주세요 :)'
             }
             return response_object, 500
 
