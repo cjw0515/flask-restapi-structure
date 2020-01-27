@@ -40,27 +40,3 @@ class AdminMenu(Resource):
         print(data)
 
         return update_menu_status(id, data)
-#
-# @api.route('/<id>')
-# @api.param('id', 'The todo identifier')
-# @api.response(404, 'todo found.')
-# class Todo(Resource):
-#     @token_required
-#     @api.doc('get a todo')
-#     @api.marshal_with(_todo)
-#     def get(self, id):
-#         todo = get_a_todo(id)
-#         if not todo:
-#             api.abort(404)
-#         else:
-#             return todo
-#
-#     @token_required
-#     @api.doc('delete a user')
-#     @api.response(204, 'User successfully deleted.')
-#     def delete(self, id):
-#         delete_todo(id)
-#         return {
-#         'status': 'success',
-#         'message': 'Successfully deleted.'
-#         }, 204

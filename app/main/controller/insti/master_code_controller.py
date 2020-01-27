@@ -2,11 +2,17 @@ from flask import request
 from flask_restplus import Resource, marshal, fields
 from app.main.util.decorator import token_required
 from app.main.util.insti.master_code_dto import MasterCodeDto
-from app.main.service.insti.master_code_service import get_codes, get_a_codes, update_code
+from app.main.service.insti.master_code_service import get_codes, get_a_codes, update_code, get_mast_code_tree
 
 api = MasterCodeDto.api
 master_code = MasterCodeDto.master_code
 master_code_mod = MasterCodeDto.master_code_mod
+
+@api.route('/')
+class MasterCodeTree(Resource):
+    @api.doc('마스터 코드 트리')
+    def get(self):
+        return {'data': get_mast_code_tree(1)}
 
 @api.route('/<code_number>')
 @api.param('code_number', '키 코드')
