@@ -8,11 +8,13 @@ api = MasterCodeDto.api
 master_code = MasterCodeDto.master_code
 master_code_mod = MasterCodeDto.master_code_mod
 
-@api.route('/')
+@api.route('/tree/<code_number>')
+@api.param('code_number', '키 코드')
+@api.response(404, 'code not found.')
 class MasterCodeTree(Resource):
     @api.doc('마스터 코드 트리')
-    def get(self):
-        return {'data': get_mast_code_tree(1)}
+    def get(self, code_number):
+        return {'data': get_mast_code_tree(code_number)}
 
 @api.route('/<code_number>')
 @api.param('code_number', '키 코드')
