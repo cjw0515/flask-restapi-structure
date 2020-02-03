@@ -19,7 +19,8 @@ def get_db_uri(env="DEV", db_name="CJW0515_DB"):
 
 
 class Config:
-    SECRET_KEY = os.urandom(16)
+    # SECRET_KEY = os.urandom(16)
+    SECRET_KEY = 'dmap'
     DEBUG = False
 
 
