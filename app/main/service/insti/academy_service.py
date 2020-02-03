@@ -1,6 +1,8 @@
 from flask import request
 from app.main import db
-from app.main.model.insti.models import Insti, InstiAddition
+from app.main.model.insti.models import Insti, InstiAddition, InstiDetail
+from app.main.util.insti.academy_dto import AcademyDto
+from flask_restplus import Resource, marshal
 from app.main.util.utils import filter_query
 
 
@@ -25,19 +27,40 @@ def get_academies():
     return {'list': page_obj.items, 'total': page_obj.total, 'perPage': page_obj.per_page}
 
 
+def get_a_academy_info(insti_no):
+    insti = marshal(get_a_academy(insti_no), AcademyDto.academy)
+    details = marshal(get_details(insti_no), AcademyDto.academy_detail)
+    additions = marshal(get_additions(insti_no), AcademyDto.academy_addition)
+
+    return {
+        'insti': insti,
+        'details': details,
+        'additions': additions
+    }
+
+
 def get_a_academy(insti_no):
-
-    # result = db.session.query(Insti, InstiAddition)\
-    #     .filter(Insti.insti_no == insti_no)\
-    #     .filter(Insti.insti_no == InstiAddition.insti_no)\
-    #     .first()
-
-    result = db.session.query(Insti, InstiAddition)\
-            .join(InstiAddition)\
+    result = db.session.query(Insti)\
             .filter(Insti.insti_no == insti_no)\
             .first()
 
-    return {'insti': result[0], 'instiAddition': result[1]}
+    return result
+
+
+def get_details(insti_no):
+    result = db.session.query(InstiDetail)\
+            .filter(InstiDetail.insti_no == insti_no)\
+            .all()
+
+    return result
+
+
+def get_additions(insti_no):
+    result = db.session.query(InstiAddition)\
+            .filter(InstiAddition.insti_no == insti_no)\
+            .all()
+
+    return result
 
 
 def insert_academy(data):
@@ -56,16 +79,11 @@ def insert_academy(data):
     return response_object, 201
 
 
-def update_academy(data, code_keys: dict = {}):
-    code = Insti.query.filter_by(age_no=code_keys['ageNo'],
-                                   gbn=code_keys['gbn'],
-                                   age_name=code_keys['ageName']).first()
-    code.age_no = data['ageNo']
-    code.gbn = data['gbn']
-    code.age_name = data['ageName']
-    code.use_yn = data['status']
+def update_academy(key, data):
+    insti = Insti.query.filter_by(insti_no=key).first()
+    print(data)
 
-    db.session.commit()
+    # db.session.commit()
 
     return {
         'status': 'success',

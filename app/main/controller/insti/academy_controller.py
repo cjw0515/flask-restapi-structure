@@ -1,8 +1,8 @@
 from flask import request
 from flask_restplus import Resource, marshal
 from app.main.util.insti.academy_dto import AcademyDto
-from app.main.service.insti.academy_service import get_academies, update_academy, insert_academy, get_a_academy
-
+from app.main.service.insti.academy_service import get_academies, update_academy, insert_academy, get_a_academy, get_a_academy_info
+from ...util.decorator import token_required
 
 api = AcademyDto.api
 academy = AcademyDto.academy
@@ -35,16 +35,12 @@ class AcademyList(Resource):
 @api.route('/<insti_no>')
 @api.param('insti_no', '학원 키')
 @api.response(404, 'academy not found.')
-class User(Resource):
+class Academy(Resource):
     @api.doc('get a academy')
     def get(self, insti_no):
         """get a academy given its identifier"""
-        result = get_a_academy(insti_no)
-        tmp_data = marshal(result['insti'], academy)
-        tmp_data.update(marshal(result['instiAddition'], academy_addition))
-
         data = {
-            'data': tmp_data
+            'data': get_a_academy_info(insti_no)
         }
 
         if not data:
@@ -52,16 +48,9 @@ class User(Resource):
         else:
             return data
 
-    # @token_required
-    @api.doc('age 코드정보 수정')
+    @token_required
+    @api.doc('학원 정보 수정')
     @api.response(201, '수정 성공.')
-    @api.expect(academy)
-    def put(self):
+    def put(self, insti_no):
         data = request.json
-        params = {
-            'ageNo': request.args.get('ageNo'),
-            'gbn': request.args.get('gbn'),
-            'ageName': request.args.get('ageName'),
-            'status': request.args.get('status')
-        }
-        return update_academy(data, params)
+        return update_academy(insti_no, data)

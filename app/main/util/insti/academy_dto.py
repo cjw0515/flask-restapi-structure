@@ -49,7 +49,13 @@ class AcademyDto:
         'seq': fields.String(description='seq', attribute='seq'),
         'itemValue': fields.String(description='item_value', attribute='item_value'),
         'itemProperty': fields.String(description='item_property', attribute='item_property'),
-        'status': fields.String(description='use_yn', attribute='use_yn')
+        'useYn': fields.String(description='use_yn', attribute='use_yn')
+    })
+    academy_detail = api.model('academy_detail', {
+        'instiNumber': fields.String(description='insti_no', attribute='insti_no'),
+        'gdn': fields.String(description='gdn', attribute='gdn'),
+        'codeNo': fields.String(description='code_no', attribute='code_no'),
+        'useYn': fields.String(description='use_yn', attribute='use_yn'),
     })
 
 
