@@ -42,6 +42,8 @@ class Academy(Resource):
         data = {
             'data': get_a_academy_info(insti_no)
         }
+        # for o in data['data']['details']:
+        #     print(o)
 
         if not data:
             api.abort(404)

@@ -38,24 +38,24 @@ class AcademyDto:
         'score': fields.Integer(description='score', attribute='score'),
         'updDate': fields.DateTime(description='upd_date', attribute='upd_date'),
         'updId': fields.String(description='upd_id', attribute='upd_id'),
-        'status': fields.Integer(description='use_yn', attribute='use_yn'),
-        'confirmYn': fields.String(description='use_yn', attribute='confirm_yn'),
+        'useYn': fields.Integer(description='use_yn', attribute='use_yn'),
+        'confirmYn': fields.Integer(description='confirmYn', attribute='confirm_yn'),
         'regDate': fields.DateTime(description='reg_date', attribute='reg_date'),
         'confirmDate': fields.DateTime(description='confirm_date', attribute='confirm_date'),
     })
     academy_addition = api.model('academy_addition', {
-        'instiNumber': fields.String(description='insti_no', attribute='insti_no'),
+        'instiNumber': fields.Integer(description='insti_no', attribute='insti_no'),
         'itemName': fields.String(description='item_name', attribute='item_name'),
-        'seq': fields.String(description='seq', attribute='seq'),
+        'seq': fields.Integer(description='seq', attribute='seq'),
         'itemValue': fields.String(description='item_value', attribute='item_value'),
         'itemProperty': fields.String(description='item_property', attribute='item_property'),
-        'useYn': fields.String(description='use_yn', attribute='use_yn')
+        'useYn': fields.Integer(description='use_yn', attribute='use_yn')
     })
     academy_detail = api.model('academy_detail', {
-        'instiNumber': fields.String(description='insti_no', attribute='insti_no'),
-        'gdn': fields.String(description='gdn', attribute='gdn'),
-        'codeNo': fields.String(description='code_no', attribute='code_no'),
-        'useYn': fields.String(description='use_yn', attribute='use_yn'),
+        'instiNumber': fields.Integer(description='insti_no', attribute='insti_no'),
+        'gbn': fields.String(description='gbn', attribute='gbn'),
+        'codeNo': fields.Integer(description='code_no', attribute='code_no'),
+        'useYn': fields.Integer(description='use_yn', attribute='use_yn'),
     })
 
 

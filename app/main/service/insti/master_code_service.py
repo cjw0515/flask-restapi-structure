@@ -61,7 +61,7 @@ def get_mast_code_tree(code_no):
 
 def get_children_code(parent_code_no):
     result = db.session.query(CodeMast)\
-             .filter(CodeMast.parent_code_no == parent_code_no, CodeMast.use_yn == 1)\
+             .filter(CodeMast.parent_code_no == parent_code_no, CodeMast.use_yn == 1, CodeMast.code_no != parent_code_no)\
              .all()
 
     return result
