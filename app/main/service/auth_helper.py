@@ -88,6 +88,7 @@ class Auth:
                     'data': {
                         'user_id': user.employee_no,
                         'email': user.email,
+                        'name': user.name
                     }
                 }
                 return response_object, 200

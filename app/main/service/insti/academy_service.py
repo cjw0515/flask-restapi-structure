@@ -1,4 +1,5 @@
 from flask import request
+from pprint import pprint as pp
 from sqlalchemy import and_
 import datetime
 from app.main import db
@@ -145,64 +146,31 @@ def insert_academy(data):
 
 def update_academy(key, data):
     insti = Insti.query.filter_by(insti_no=key).first()
-    # print(data)
-    insti_key = data['insti']['instiNumber']
+    insti_key = key
     if not insti_key:
         return
 
-    update_insti(data['insti'], insti_key)
-    chk_detail_data(data['detailData'], insti_key)
-    chk_addition_data(data['additionData'], insti_key)
-
-    # db.session.commit()
+    if 'insti' in data: update_insti(data['insti'], insti_key)
+    if 'detailData' in data: chk_detail_data(data['detailData'], insti_key)
+    if 'additionData' in data: chk_addition_data(data['additionData'], insti_key)
 
     return {
         'status': 'success',
         'message': 'Successfully updated.'
     }, 201
 
+
 def update_insti(data, insti_key):
     if not insti_key: return
     insti = Insti.query.filter_by(insti_no=insti_key).first()
 
-    # print(data)
+    for key, val in data.items():
+        insti.__setattr__(AcademyDto.academy._schema['properties'][key]['description'], val)
 
-    insti.insti_name = data['instiName']
-    insti.insti_kname = data['instiKname']
-    # insti.insti_type1 = data['']
-    # insti.insti_type2 = data['']
-    # insti.category1 = data['']
-    # insti.category2 = data['']
-    # insti.category3 = data['']
-    # insti.area1 = data['']
-    # insti.area2 = data['']
-    # insti.area3 = data['']
-    insti.address1 = data['address1']
-    insti.address2 = data['address2']
-    insti.address3 = data['address3']
-    insti.building = data['building']
-    insti.zipcode = data['zipcode']
-    insti.old_address = data['oldAddress']
-    insti.old_zipcode = data['oldZipcode']
-    insti.latitude = data['latitude']
-    insti.longitude = data['longitude']
-    insti.insti_img = data['instiImg']
-    insti.opentime_flex_yn = data['opentimeFlexYn']
-    insti.entran_exam_yn = data['entranExamYn']
-    insti.homework_amount = data['homeworkAmount']
-    insti.founder = data['founder']
-    insti.num_teacher = data['numTeacher']
-    insti.num_limit = data['numLimit']
-    # insti.like_cnt = data['']
-    # insti.score = data['']
-    # insti.kakao_id = data['']
-    # insti.naver_id = data['']
-    # insti.reg_date = data['']
-    insti.upd_date = datetime.datetime.utcnow()
-    insti.upd_id = 'ww'
-    insti.confirm_yn = data['confirmYn']
     insti.confirm_date = datetime.datetime.utcnow() if insti.confirm_yn == 1 else None
-    insti.use_yn = data['useYn'] or 1
+    insti.upd_id = Auth.get_logged_in_user(request)[0]['data']['name']
+    insti.upd_date = datetime.datetime.utcnow()
+    insti.use_yn = data['useYn'] if 'useYn' in data else 1
 
     print(Auth.get_logged_in_user(request))
 

@@ -26,7 +26,7 @@ class AcademyDto:
         'latitude': fields.String(description='latitude', attribute='latitude'),
         'longitude': fields.String(description='longitude', attribute='longitude'),
         'instiImg': fields.String(description='insti_img', attribute='insti_img'),
-        'opentimeFlexYn': fields.Integer(description='opentime_flex_yn', attribute='opentime_flex_yn'),
+        'openFlexYn': fields.Integer(description='opentime_flex_yn', attribute='opentime_flex_yn'),
         'entranExamYn': fields.Integer(description='entran_exam_yn', attribute='entran_exam_yn'),
         'homeworkAmount': fields.Integer(description='homework_amount', attribute='homework_amount'),
         'numLimit': fields.Integer(description='num_limit', attribute='num_limit'),
@@ -39,7 +39,7 @@ class AcademyDto:
         'updDate': fields.DateTime(description='upd_date', attribute='upd_date'),
         'updId': fields.String(description='upd_id', attribute='upd_id'),
         'useYn': fields.Integer(description='use_yn', attribute='use_yn'),
-        'confirmYn': fields.Integer(description='confirmYn', attribute='confirm_yn'),
+        'confirmYn': fields.Integer(description='confirm_yn', attribute='confirm_yn'),
         'regDate': fields.DateTime(description='reg_date', attribute='reg_date'),
         'confirmDate': fields.DateTime(description='confirm_date', attribute='confirm_date'),
     })
