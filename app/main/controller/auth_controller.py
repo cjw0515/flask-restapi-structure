@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from flask import request
 from flask_restplus import Resource, fields
 from app.main.service.auth_helper import Auth

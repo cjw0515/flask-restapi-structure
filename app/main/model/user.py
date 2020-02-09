@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from .. import db, flask_bcrypt
 import datetime
 import jwt

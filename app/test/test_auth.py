@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 import unittest
 import json
 from app.test.base import BaseTestCase

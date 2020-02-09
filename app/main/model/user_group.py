@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from .. import db
 
 class UserGroup(db.Model):

@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 import os
 from definitions import INSTI, CJW0515_DB, BO
 from dotenv import load_dotenv, find_dotenv

@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from app.main.model.user import User
 from app.main.model.user_group import UserGroup
 from ..service.blacklist_service import save_token
