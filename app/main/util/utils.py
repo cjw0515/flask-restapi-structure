@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 def filter_query(query, filter_condition):
     '''
     Return filtered queryset based on condition.
