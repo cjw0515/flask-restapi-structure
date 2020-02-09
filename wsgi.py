@@ -1,5 +1,5 @@
 # -- coding: utf-8 --
-from manage import run
+from manage import app
 
 if __name__ == "__main__":
-    run()
+    app.run()
