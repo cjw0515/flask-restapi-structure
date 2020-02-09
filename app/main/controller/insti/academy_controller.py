@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from flask import request
 from flask_restplus import Resource, marshal
 from app.main.util.insti.academy_dto import AcademyDto
