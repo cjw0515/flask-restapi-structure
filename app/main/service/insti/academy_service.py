@@ -17,6 +17,7 @@ def get_academies():
     per_page = int(request.args.get('perPage', 10))
 
     query = request.args.get('query')
+    is_check = request.args.get('chkOption')
 
     # print(request.args)
 
@@ -26,6 +27,11 @@ def get_academies():
             tmp_filters.append(Insti.insti_no == query)
         elif request.args.get('queryType') == 'instiName':
             tmp_filters.append(Insti.insti_name.like('%{query}%'.format(query=query)))
+
+    if is_check == '1':
+        tmp_filters.append(Insti.confirm_yn == 1)
+    elif is_check == '0':
+        tmp_filters.append(Insti.confirm_yn == 0)
 
     filters = tuple(tmp_filters)
     page_obj = db.session.query(Insti).filter(*filters).order_by(Insti.insti_no.desc()).paginate(page=page,
