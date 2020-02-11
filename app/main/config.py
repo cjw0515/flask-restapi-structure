@@ -31,7 +31,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = get_db_uri(env="DEV", db_name=BO)
     SQLALCHEMY_BINDS = {
         # 'test': get_db_uri(env="TEST", db_name=CJW0515_DB),
-        # 'bo': get_db_uri(env="TEST", db_name=BO),
+        # 'bo': get_db_uri(env="DEV", db_name=BO),
         'insti': get_db_uri(env="DEV", db_name=INSTI),
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -49,10 +49,11 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     ENV = "production"
-    SQLALCHEMY_DATABASE_URI = get_db_uri(db_name=INSTI)
+    SQLALCHEMY_DATABASE_URI = get_db_uri(env="PROD", db_name=BO)
     SQLALCHEMY_BINDS = {
-        'test': get_db_uri(env="TEST", db_name=CJW0515_DB),
-        'bo': get_db_uri(db_name=BO),
+        # 'test': get_db_uri(env="TEST", db_name=CJW0515_DB),
+        # 'bo': get_db_uri(env="PROD", db_name=BO),
+        'insti': get_db_uri(env="PROD", db_name=INSTI),
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # uncomment the line below to use postgres
