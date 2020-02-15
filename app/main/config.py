@@ -22,7 +22,6 @@ def get_db_uri(env="DEV", db_name="CJW0515_DB"):
 class Config:
     # SECRET_KEY = os.urandom(16)
     SECRET_KEY = 'dmap'
-    DEBUG = False
 
 
 class DevelopmentConfig(Config):
@@ -47,7 +46,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    DEBUG = False
+    DEBUG = True
     ENV = "production"
     SQLALCHEMY_DATABASE_URI = get_db_uri(env="PROD", db_name=BO)
     SQLALCHEMY_BINDS = {
