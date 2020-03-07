@@ -11,6 +11,7 @@ from flask_script import Manager
 from app.main import create_app, db
 from app import blueprint
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from app.main.model.user_group import UserGroup
 from app.main.model.todo import Todo
 from app.main.model.blacklist import BlacklistToken
@@ -37,6 +38,7 @@ app.register_blueprint(blueprint)
 app.app_context().push()
 
 manager = Manager(app)
+db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
