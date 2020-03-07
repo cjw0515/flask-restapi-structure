@@ -20,7 +20,7 @@ def create_app(config_name):
                 template_folder=TEMPLATE_FOLDER)
     app.config.from_object(config_by_name[config_name])
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 5, 'max_overflow': 10, 'pool_recycle': -1}
-    db.init_app(app)
+    db = SQLAlchemy(app)
     """
     This helper function wraps the eponymous method of Bcrypt. 
     It is intended to be used as a helper function at the expense of the configuration variable provided 
