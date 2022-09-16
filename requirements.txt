@@ -17,7 +17,7 @@ inflect==2.1.0
 itsdangerous==1.1.0
 Jinja2==2.10.1
 jsonschema==3.0.2
-Mako==1.1.0
+Mako==1.2.2
 MarkupSafe==1.1.1
 pycparser==2.19
 PyJWT==1.7.1
